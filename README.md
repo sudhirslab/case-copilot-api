@@ -14,3 +14,28 @@ The basic considerations for the service should include:
 - A user may open multiple cases.
 - Chat messages and attachments belong to a case. Maintaining a separate “chat” concept is not necessary - the UX for a case is a chat conversation.
 - User able to attach files
+
+
+## Directory structure
+```
+fastapi_case_app/
+├── main.py
+├── models/
+│   ├── case.py
+│   ├── message.py
+│   ├── attachment.py
+│   └── user.py
+├── data/
+│   ├── attachment_store.py
+│   ├── case_store.py
+│   ├── message_store.py
+│   └── user_store.py
+├── routes/
+│   ├── case_routes.py
+│   └── message_routes.py
+├── utilities/
+│   └── thumbnail_generator.py
+└── requirements.txt
+
+```
+
