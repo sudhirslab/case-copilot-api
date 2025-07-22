@@ -89,6 +89,24 @@ fastapi_case_app/
     http://127.0.0.1:8000/docs
     ```
 
+````bash
+Requirement already satisfied: pip in ./.venv/lib/python3.13/site-packages (25.1.1)
+INFO:     Will watch for changes in these directories: ['/Users/sudhir/RESTRICTED/DevZone/case-copilot-api']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [15658] using StatReload
+INFO:     Started server process [15660]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:54834 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54834 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54940 - "GET /cases HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:54940 - "GET /cases/ HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:54948 - "GET /cases/user/1 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54954 - "POST /cases/?owner_id=1&issue_description=Bill%20Amount%20Settlement HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54959 - "GET /cases/user/1 HTTP/1.1" 200 OK
+
+```
+
 ![Api Routes](./public/images/api-docs-routes.png)
 ![Api Schema](./public/images/api-docs-schema.png)
 
