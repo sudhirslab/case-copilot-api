@@ -89,3 +89,43 @@ fastapi_case_app/
     http://127.0.0.1:8000/docs
     ```
 
+![Api Routes](./public/images/api-docs-routes.png)
+![Api Schema](./public/images/api-docs-schema.png)
+
+---
+
+## Known Limitations & Areas for Improvement
+
+- **In-memory storage**: Data resets on every restart; no persistence.
+- **No authentication**: The API trusts the provided `sender_id` and other IDs without verifying identity. And most of them are natural numbers. (UUID could have been implemented)
+- **Thumbnail storage path**: Currently hardcoded to a local directory without cleanup or management.
+- **Error handling**: Basic error messages without standardized error response schemas.
+- **Concurrency considerations**: No locking or concurrency safety around the shared in-memory lists.
+- **Tests**: No automated tests currently implemented.
+
+---
+
+## Future Enhancements & Ideas
+
+- Integrate a proper database (e.g., SQLite, PostgreSQL) for persistent storage.
+- UUID implementation for the ID related fields
+- Add user authentication and authorization, e.g., OAuth or JWT tokens.
+- Implement pagination and filtering for messages and cases.
+- Add API rate limiting and logging middleware.
+- Improve thumbnail handling: caching, async generation, and cleanup of old thumbnails.
+- Add automated testing suite (unit and integration tests).
+- Dockerize the application for containerized deployment.
+- Support additional file types and richer attachment metadata.
+- Add notifications (email, push) for new messages or case status changes.
+- Adding caching layer storing created cased for large scale
+
+---
+
+## Contact & Contributions
+
+Feel free to open issues or submit pull requests. 
+For questions, contact: [sudhirp@duck.com]
+
+---
+
+
