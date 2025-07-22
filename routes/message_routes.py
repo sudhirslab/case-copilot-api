@@ -10,19 +10,57 @@ from typing import Optional
 
 router = APIRouter()
 
+
+"""
+AttachmentData model
+
+Attributes:
+    file_name (str): The name of the file.
+    file_url (str): The URL of the file.
+"""
 class AttachmentData(BaseModel):
     file_name: str
     file_url: str
 
+
+
+"""
+MessageRequest model
+
+Attributes:
+    sender_id (int): The unique identifier for the sender of the message.   
+    content (str): The content of the message.
+    attachment (Optional[AttachmentData]): The attachment of the message.
+"""
 class MessageRequest(BaseModel):
     sender_id: int
     content: str
     attachment: Optional[AttachmentData] = None
 
+
+
+"""
+EditMessageRequest model
+
+Attributes:
+    sender_id (int): The unique identifier for the sender of the message.
+    content (str): The content of the message.
+"""
 class EditMessageRequest(BaseModel):
     sender_id: int
     content: str
 
+
+
+"""
+Route: /{case_id}/messages
+API to create a new message
+
+Method: POST
+Args:
+    case_id (int): The unique identifier for the case.
+    body (MessageRequest): The request body.
+"""
 @router.post("/{case_id}/messages")
 def create_message(case_id: int, body: MessageRequest):
     try:
@@ -54,6 +92,16 @@ def create_message(case_id: int, body: MessageRequest):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+
+
+"""
+Route: /{case_id}/messages
+API to get all messages for a case
+
+Method: GET
+Args:
+    case_id (int): The unique identifier for the case.
+"""
 @router.get("/{case_id}/messages")
 def get_messages(case_id: int):
     existing_case = next((c for c in cases if c.case_id == case_id and c.status == "open"), None)
@@ -62,6 +110,17 @@ def get_messages(case_id: int):
     filtered = [m for m in messages if m.case_id == case_id]
     return filtered
 
+
+
+"""
+Route: /{case_id}/messages/{message_id}/attachments
+API to get all attachments for a message
+
+Method: GET
+Args:
+    case_id (int): The unique identifier for the case.
+    message_id (int): The unique identifier for the message.
+"""
 @router.get("/{case_id}/messages/{message_id}/attachments")
 def get_message_attachments(case_id: int, message_id: int):
     existing_case = next((c for c in cases if c.case_id == case_id and c.status == "open"), None)
@@ -73,6 +132,18 @@ def get_message_attachments(case_id: int, message_id: int):
     filtered_attachments = [a for a in attachments if a["message_id"] == message_id]
     return filtered_attachments
 
+
+
+"""
+Route: /{case_id}/messages/{message_id}/edit
+API to edit a message
+
+Method: POST
+Args:
+    case_id (int): The unique identifier for the case.
+    message_id (int): The unique identifier for the message.
+    body (EditMessageRequest): The request body.
+"""
 @router.post("/{case_id}/messages/{message_id}/edit")
 def edit_message(case_id: int, message_id: int, body: EditMessageRequest):
     existing_case = next((c for c in cases if c.case_id == case_id and c.status == "open"), None)
